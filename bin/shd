@@ -1,0 +1,25 @@
+#! /bin/bash
+
+coproc bashproc { bash; }
+
+failed() {
+	echo F
+	echo "Failed example:" >&2
+	echo "    $1" >&2
+	echo "Expected:" >&2
+	echo "    $2" >&2
+	echo "Got:" >&2
+	echo "    $3" >&2
+}
+
+while read line
+do
+	[[ "$line" =~ \$\ .* ]] && example=`echo $line | cut -c 3-`
+	[[ "$line" =~ \<\ .* ]] && expected=`echo $line | cut -c 3-`
+done
+
+echo $example >&${bashproc[1]}
+read -u ${bashproc[0]} got
+[ "`echo $expected`" = "`echo $got`" ] && echo . || failed "$example" "$expected" "$got"
+
+exit 0
