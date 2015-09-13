@@ -10,17 +10,17 @@ example() {
 expected() {
 	expected=`echo $1 | cut -c 3-`
 	read -u ${bashproc[0]} got
-	[ "$expected" = "$got" ] && echo . || failed "$example" "$expected" "$got"
+	[ "$expected" = "$got" ] && echo -n . || failed "$example" "$expected" "$got"
 }
 
 failed() {
-	echo F
-	echo "Failed example:" >&2
-	echo "    $1" >&2
-	echo "Expected:" >&2
-	echo "    $2" >&2
-	echo "Got:" >&2
-	echo "    $3" >&2
+	echo -n F
+	failure+="\nFailed example:\n"
+	failure+="    $1\n"
+	failure+="Expected:\n"
+	failure+="    $2\n"
+	failure+="Got:\n"
+	failure+="    $3"
 }
 
 while read line
@@ -28,5 +28,7 @@ do
 	[[ "$line" =~ ^\$\ .* ]] && example "$line"
 	[[ "$line" =~ ^\<\ .* ]] && expected "$line"
 done
+
+echo -e $failure >&2
 
 exit 0
