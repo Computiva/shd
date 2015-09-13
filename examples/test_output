@@ -1,2 +1,6 @@
+This example shows a simple command execution and its expected output. The
+command is followed by a $ char and then its expected output is followed by a <
+char.
+
 $ echo "This is a test case."
 < This is a test case.
