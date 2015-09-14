@@ -1,0 +1,32 @@
+# shd(1) -- describe test cases in a document
+
+## SYNOPSIS
+
+`shd`
+
+## DESCRIPTION
+
+`shd` reads a document from input and interpret some of special lines to test
+a source code.
+
+Special lines starts with:
+
+* `$`:
+    Execute this line with bash.
+
+* `<`:
+    Expect an output from bash.
+
+* `>`:
+    Send an input to running command.
+
+It prints a "." char for each satisfied expectation and a "F" char for each
+failure. After reading all the document, it shows the detailed failures.
+
+## AUTHOR
+
+Written by Angelo Nuffer.
+
+## SEE ALSO
+
+bash(1)
