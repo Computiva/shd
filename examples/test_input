@@ -1,0 +1,6 @@
+This example shows an input sending to a command.
+
+$ read test_var
+> 3
+$ expr $test_var + 1
+< 4
