@@ -3,19 +3,19 @@
 coproc bashproc { bash; }
 
 example() {
-	example=`echo $1 | cut -c 3-`
-	echo $example >&${bashproc[1]}
+	example=`echo "$1" | cut -c 3-`
+	echo "$example" >&${bashproc[1]}
 }
 
 expected() {
-	expected=`echo $1 | cut -c 3-`
+	expected=`echo "$1" | cut -c 3-`
 	read -t 1 -u ${bashproc[0]} got
 	[ "$expected" = "$got" ] && echo -n . || failed "$example" "$expected" "$got"
 }
 
 send() {
-	send=`echo $1 | cut -c 3-`
-	echo $send >&${bashproc[1]}
+	send=`echo "$1" | cut -c 3-`
+	echo "$send" >&${bashproc[1]}
 }
 
 failed() {
@@ -35,6 +35,6 @@ do
 	[[ "$line" =~ ^\>\ .* ]] && send "$line"
 done
 
-echo -e $failure >&2
+echo -e "$failure" >&2
 
 exit 0
